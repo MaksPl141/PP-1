@@ -8,20 +8,24 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        UserService service = new UserServiceImpl();
+        UserService userService = new UserServiceImpl();
 
-        service.createUsersTable();
+        userService.createUsersTable();
 
-        service.saveUser("Ivan", "Ivanov", (byte) 28);
-        service.saveUser("Oleg", "Petrov", (byte) 35);
-        service.saveUser("Maxim", "Semenov", (byte) 41);
-        service.saveUser("Igor", "Severov", (byte) 20);
+        userService.saveUser("Ivan", "Ivanov", (byte) 25);
+        userService.saveUser("Oleg", "Petrov", (byte) 30);
+        userService.saveUser("Maxim", "Semenov", (byte) 28);
+        userService.saveUser("Igor", "Severov", (byte) 35);
 
-        List<User> users = service.getAllUsers();
-        users.forEach(System.out::println);
+        List<User> allUsers = userService.getAllUsers();
+        System.out.println("\nСписок всех пользователей:");
+        allUsers.forEach(System.out::println);
 
-        service.cleanUsersTable();
-        service.dropUsersTable();
+        userService.cleanUsersTable();
+        System.out.println("\nТаблица пользователей очищена");
+
+        userService.dropUsersTable();
+        System.out.println("Таблица пользователей удалена");
     }
 }
 
