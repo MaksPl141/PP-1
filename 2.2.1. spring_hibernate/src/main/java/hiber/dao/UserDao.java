@@ -8,4 +8,5 @@ public interface UserDao {
    void add(User user);
    List<User> listUsers();
    User findOwnerByCar(String model, int series);
+   void clearTables();
 }
