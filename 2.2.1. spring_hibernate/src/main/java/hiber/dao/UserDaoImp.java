@@ -13,8 +13,11 @@ import java.util.List;
 @Repository
 public class UserDaoImp implements UserDao {
 
-   @Autowired
-   private SessionFactory sessionFactory;
+   private final SessionFactory sessionFactory;
+
+   public UserDaoImp(SessionFactory sessionFactory) {
+      this.sessionFactory = sessionFactory;
+   }
 
    @Override
    public void add(User user) {
@@ -42,13 +45,10 @@ public class UserDaoImp implements UserDao {
 
    @Override
    public User findOwnerByCar(String model, int series) {
-      String hql = "from User u where u.car.model = :model and u.car.series = :series";
-
+      String hql = "from User u join fetch u.car c where c.model = :model and c.series = :series";
       Query query = sessionFactory.getCurrentSession().createQuery(hql);
-
       query.setParameter("model", model);
       query.setParameter("series", series);
-
       return (User) query.uniqueResult();
    }
 }
